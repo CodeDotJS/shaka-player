@@ -26,14 +26,23 @@ const MediaMetadata = class {
   }
 };
 
-
 const MediaSession = class {
   constructor() {
     /** @type {?MediaMetadata} */
     this.metadata;
   }
+
+  setActionHandler(action, method) {
+    /** @type {string} */
+    this.action = action;
+    /** @type {!Object} */
+    this.method = method;
+  }
 };
 
+var seekOffset;
 
 /** @type {MediaSession} */
 Navigator.prototype.mediaSession;
+/** @type {MediaSession} */
+Navigator.prototype.mediaSession.setActionHandler = seekOffset;

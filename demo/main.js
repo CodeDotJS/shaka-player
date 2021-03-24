@@ -1279,7 +1279,6 @@ shakaDemo.Main = class {
             'Proceeding without ads.');
         }
       }
-
       // Set media session title, but only if the browser supports that API.
       if (navigator.mediaSession) {
         const metadata = {
@@ -1288,6 +1287,22 @@ shakaDemo.Main = class {
         };
         metadata.artist = asset.source;
         navigator.mediaSession.metadata = new MediaMetadata(metadata);
+
+        navigator.mediaSession.setActionHandler('pause', () => {
+          this.video_.pause();
+        });
+
+        navigator.mediaSession.setActionHandler('play', () => {
+          this.video_.play();
+        });
+
+        navigator.mediaSession.setActionHandler('seekbackward', (details) => {
+          this.video_.currentTime -= (details.seekOffset || 10);
+        });
+
+        navigator.mediaSession.setActionHandler('seekforward', (details) => {
+          this.video_.currentTime += (details.seekOffset || 10);
+        });
       }
     } catch (reason) {
       const error = /** @type {!shaka.util.Error} */ (reason);
